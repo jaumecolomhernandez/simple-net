@@ -21,9 +21,10 @@ class Network:
             On an interesting side, creating a 2D (1xN) array
             makes the results cleaner.         
         """
-        input_data = input_data[np.newaxis,:]
-        output = self.layers[0].forward_prop(input_data)
-        return output.ravel() # Heavy use of ravel (be careful)
+        y = input_data[np.newaxis,:]
+        for layer in self.layers:
+            y = layer.forward_prop(y)
+        return y.ravel() # Heavy use of ravel (be careful)
 
     # Dumb methods to train and eval the network
     def train(self, training_set):
