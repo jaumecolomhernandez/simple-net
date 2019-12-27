@@ -10,10 +10,12 @@ class Network:
     def __init__(
         self,
         model=None,
+        error_class=None,
         data_range=(0,1)
     ):  
         # Base params
         self.layers = model
+        self.error = error_class
         self.iter_train = int(1e8)
         self.iter_eval = int(1e6)
 
@@ -48,10 +50,19 @@ class Network:
     def train(self, training_set):
         " Trains the network given a dataset "
         for i in range(self.iter_train):
+            # Take sample from dataser, flatten it and normalize
             sample = self.normalize(next(training_set()).ravel())
+
+            # Forward propagate
             output = self.forward_prop(sample)
-            self.error_history.append(0.8)
-            #print(output)
+
+            # Compute errors
+            error_array = self.error.calc(sample, output) # 2X2 size
+            error_d_array = self.error.calc_d(sample, output)
+            error = np.mean(error_array**2)**0.5
+
+            # Error visualization
+            self.error_history.append(error)
             if (i+1)%self.report_interval == 0:
                 current_error = self.report()
                 print(f"Report|Iteration:{i+1}|Error:{current_error}")
@@ -60,11 +71,20 @@ class Network:
     def evaluate(self, evaluation_set):
         " Evaluates the network given a dataset (of unseen data) "
         for i in range(self.iter_eval):
-            sample = self.normalize(next(evaluation_set()).ravel())
-            self.error_history.append(1)
-            #print(sample)
+            # Take sample from dataser, flatten it and normalize
+            sample = self.normalize(next(training_set()).ravel())
+
+            # Forward propagate
+            output = self.forward_prop(sample)
+
+            # Compute errors
+            error_array = self.error.calc(sample, output) # 2X2 size
+            error = np.mean(error_array**2)**0.5
+
+            # Error visualization
+            self.error_history.append(error)
             if (i+1)%self.report_interval == 0:
-                self.report()
+                current_error = self.report()
         return
     
     # Inputs to the net should be between [-0.5, 0.5] cause gradient descent
@@ -107,4 +127,5 @@ class Network:
         fig.savefig(os.path.join(self.report_folder, self.report_name))
         plt.close()
 
+        # Returns the last log10 calculated error for the CLI logging
         return error_history[-1]

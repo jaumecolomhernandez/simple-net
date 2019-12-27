@@ -1,6 +1,7 @@
 from neural_network.network import Network
 from neural_network.layer import Dense
 import neural_network.activation as activations
+import neural_network.error as errors
 
 import dataset_gen as data
 
@@ -19,7 +20,7 @@ layers = []
 for i in range(len(n_nodes)-1):
     layers.append(Dense(n_nodes[i], n_nodes[i+1], activations.tanh))
 
-autoencoder = Network(model=layers, data_range=(0, 1))
+autoencoder = Network(model=layers, error_class=errors.sqr, data_range=(0, 1))
 
 # Run dumb methods
 autoencoder.train(training)
