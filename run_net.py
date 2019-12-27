@@ -10,7 +10,7 @@ training, evaluation = data.generate_sets()
 sample = next(training())
 n_pix = sample.shape[0] * sample.shape[1]
 
-# Layer number of neurons
+# Number of neurons per layer
 hidden = [6,5,5]
 n_nodes = [n_pix] + hidden + [n_pix]
 
