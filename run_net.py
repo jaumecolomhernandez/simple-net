@@ -12,7 +12,7 @@ sample = next(training())
 n_pix = sample.shape[0] * sample.shape[1]
 
 # Number of neurons per layer
-hidden = [6,5,5]
+hidden = [9]
 n_nodes = [n_pix] + hidden + [n_pix]
 
 # Create model structure
@@ -25,4 +25,3 @@ autoencoder = Network(model=layers, error_class=errors.sqr, data_range=(0, 1))
 # Run dumb methods
 autoencoder.train(training)
 autoencoder.train(evaluation)
-

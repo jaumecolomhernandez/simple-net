@@ -26,12 +26,13 @@ class Network:
 
         # Parameters for error accounting and plot generation
         self.error_history = [] # TODO: Convert to numpy array
-        self.error_bins = 1000
+        self.error_bins = int(1e3)
+        self.report_interval = int(1e5)
         self.report_max = 0     # As we will be using log error max is zero
-        self.report_min = -3    
+        self.report_min = -5    
         self.report_folder = "outputs"
         self.report_name = "history.png"
-        self.report_interval = int(1e5)
+        
 
         try: os.mkdir(self.report_folder)   # Create the folder in case it does not exist
         except: pass
@@ -45,24 +46,33 @@ class Network:
         for layer in self.layers:
             y = layer.forward_prop(y)
         return y.ravel() # Heavy use of ravel (be careful)
+    
+    def back_prop(self, de_dy):
+        """ Does backwards propagation
+        """
+        for layer in self.layers[::-1]:
+            de_dx = layer.back_prop(de_dy)
+            de_dy = de_dx  
 
     # Dumb methods to train and eval the network
     def train(self, training_set):
         " Trains the network given a dataset "
         for i in range(self.iter_train):
             # Take sample from dataser, flatten it and normalize
-            sample = self.normalize(next(training_set()).ravel())
+            x = self.normalize(next(training_set()).ravel())
 
             # Forward propagate
-            output = self.forward_prop(sample)
+            y = self.forward_prop(x)
 
             # Compute errors
-            error_array = self.error.calc(sample, output) # 2X2 size
-            error_d_array = self.error.calc_d(sample, output)
+            error_array = self.error.calc(x, y) # 2X2 size
             error = np.mean(error_array**2)**0.5
+            self.error_history.append(error)
+
+            error_d_array = self.error.calc_d(x, y)
+            self.back_prop(error_d_array)
 
             # Error visualization
-            self.error_history.append(error)
             if (i+1)%self.report_interval == 0:
                 current_error = self.report()
                 print(f"Report|Iteration:{i+1}|Error:{current_error}")
