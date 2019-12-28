@@ -12,6 +12,7 @@ I will be doing my final thesis in deep neural networks applied to computer visi
 </p>
 
 #### Implementation bits
+I wrote some equations here -> <link>
 
 #### Missing features
 - Add some examples
