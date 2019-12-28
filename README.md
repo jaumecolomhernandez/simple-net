@@ -8,7 +8,7 @@ I will be doing my final thesis in deep neural networks applied to computer visi
 <img src="./docs/imgs/code-schematic.png" width="600">
 </p>
 <p align="center">
-<img src="./docs/imgs/sample-arch.png" width="600">
+<img src="./docs/imgs/sample-arch.png" width="450">
 </p>
 
 #### Missing features
