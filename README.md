@@ -1,15 +1,17 @@
 # Simple net
 A very simple implementation of a neural network.
 #### Motivation
+<p align="center">
+<img src="./docs/imgs/sample-arch.png" width="350">
+</p>
 I will be doing my final thesis in deep neural networks applied to computer vision, and I know (almost) nothing about neural networks. I should learn how do they work if I want to do a competent project. By implementing one from scratch I will (supposedly) understand their inner workings. 
 
 #### Structure
 <p align="center">
 <img src="./docs/imgs/code-schematic.png" width="600">
 </p>
-<p align="center">
-<img src="./docs/imgs/sample-arch.png" width="450">
-</p>
+
+#### Implementation bits
 
 #### Missing features
 - Add some examples
