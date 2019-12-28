@@ -2,7 +2,7 @@
 A very simple implementation of a neural network.
 #### Motivation
 <p align="center">
-<img src="./docs/imgs/sample-arch.png" width="550">
+<img src="./docs/imgs/sample-architecture.png" width="550">
 </p>
 I will be doing my final thesis in deep neural networks applied to computer vision, and I know (almost) nothing about neural networks. I should learn how do they work if I want to do a competent project. By implementing one from scratch I will (supposedly) understand their inner workings. 
 
