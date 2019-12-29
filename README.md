@@ -12,7 +12,7 @@ I will be doing my final thesis in deep neural networks applied to computer visi
 </p>
 
 #### Implementation bits
-I wrote some equations here -> <link>
+I wrote some equations [here](https://github.com/jaumecolomhernandez/simple-net/blob/master/docs/simple_net_notes.pdf)
 
 #### Missing features
 - Add some examples
